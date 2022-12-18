@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
+import Provider from "../features/integration";
 
 const Home: NextPage = () => {
   return (
@@ -13,11 +14,18 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
+
+
         <h1 className={styles.title}>Blinq</h1>
+
+
 
         <p className={styles.description}>Manage your integrations here</p>
 
-        <div className={styles.grid}>Build here</div>
+        <div className={styles.grid}>
+
+          <Provider />
+        </div>
       </main>
     </div>
   );

@@ -11,6 +11,8 @@
   transition: color 0.15s ease, border-color 0.15s ease;
   max-width: 300px;
   width: 100%;
+  position: relative;
+
   &:hover,
   &:focus,
   &:active {

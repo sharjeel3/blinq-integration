@@ -82,8 +82,8 @@ export class Database {
     Database.integrations.push(integration);
   }
 
-  public static removeIntegration(integration: Integration) {
-    const start = Database.integrations.map(i => i.id).indexOf(integration.id);
+  public static removeIntegration(id: string) {
+    const start = Database.integrations.map(i => i.id).indexOf(id);
     Database.integrations.splice(start, 1);
   }
 }

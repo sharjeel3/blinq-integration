@@ -1,0 +1,71 @@
+@import "../../styles/variables";
+
+.root {
+  display: inline-flex;
+  flex-direction: column;
+  position: relative;
+  vertical-align: top;
+  margin-bottom: 1em;
+}
+
+.input {
+  font: inherit;
+  letter-spacing: inherit;
+  color: currentcolor;
+  border: 1px solid $grey-color;
+  border-radius: 4px;
+  box-sizing: content-box;
+  background: none;
+  height: 1.4375em;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+  display: block;
+  min-width: 0;
+  width: 100%;
+  padding: 1em 0.8em;
+  outline: 0;
+
+  &:focus {
+    border: 1px solid $accent-color;
+    border-color: $accent-color;
+  }
+
+  &:focus + label {
+    @extend label, .active;
+  }
+
+  &:not([value=""]) + label {
+    @extend label, .active;
+  }
+}
+
+.label {
+  color: $dark-color;
+  font-family: inherit;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+  padding: 0 0.5em;
+  background: $light-color;
+  display: block;
+  transform-origin: left top;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 1.8em);
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(0.8em, 1em) scale(1);
+  transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms, transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms, max-width 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  z-index: 1;
+  pointer-events: none;
+
+  &.active {
+    transform: translate(1em, -0.55em) scale(0.75);
+    pointer-events: auto;
+    max-width: calc(133% - 2em);
+    user-select: none;
+  }
+}

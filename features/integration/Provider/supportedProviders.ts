@@ -1,23 +1,28 @@
-type Mapping = {
+export type Mapping = {
   key: string;
   map: {source: string; target: string;}[]
+}
+
+export type Field = {
+  key: string;
+  name: string;
 }
 
 export interface IntegrationProvider {
   name: string;
   description: string;
   imagePath: string;
-  fields: string[];
+  fields: Field[];
   provider: Providers;
   mappings?: Mapping;
   // add connectionString, connection parameters info etc, headers
-  // scopes?
+  // ?scopes?
 }
 
 export enum Providers {
-  Salesforce,
-  Hubspot,
-  Zapier
+  Salesforce = "salesforce",
+  Hubspot = "hubspot",
+  Zapier = "zapier"
 }
 
 export const supportedProviders: IntegrationProvider[] = [
@@ -26,14 +31,19 @@ export const supportedProviders: IntegrationProvider[] = [
     name: "Salesforce",
     description: "All your contacts in Salesforce CRM",
     imagePath: "/logos/salesforce.svg",
-    fields: ["client_id", "client_secret"]
+    fields: [
+      {key: "client_id", name: "Client id"},
+      {key: "client_secret", name: "Client secret"}
+    ]
   },
   {
     provider: Providers.Hubspot,
     name: "Hubspot",
     description: "Hubspot is the best free CRM",
     imagePath: "/logos/hubspot.svg",
-    fields: ["api_key"],
+    fields: [
+      {key: "api_key", name: "API key"}
+    ],
     mappings: {
       key: "field_mappings",
       map: [
@@ -48,6 +58,10 @@ export const supportedProviders: IntegrationProvider[] = [
     name: "Zapier",
     description: "Unleash Zapier + Blinq",
     imagePath: "/logos/zapier.svg",
-    fields: ["tenant_domain", "client_id", "client_secret"]
+    fields: [
+      {key: "tenant_domain", name: "Tenant domain"},
+      {key: "client_id", name: "Client id"},
+      {key: "client_secret", name: "Client secret"}
+    ]
   }
 ];

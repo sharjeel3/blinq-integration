@@ -1,0 +1,9 @@
+@import "../../styles/variables";
+
+.root {
+  text-decoration: underline;
+  margin-bottom: 1em;
+  &:hover {
+    color: $accent-color;
+  }
+}

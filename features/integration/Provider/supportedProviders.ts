@@ -15,8 +15,8 @@ export interface IntegrationProvider {
   fields: Field[];
   provider: Providers;
   mappings?: Mapping;
-  // add connectionString, connection parameters info etc, headers
-  // ?scopes?
+  // TODO: add connectionString, connection parameters info etc, headers
+  //  ?scopes?
 }
 
 export enum Providers {
@@ -44,6 +44,8 @@ export const supportedProviders: IntegrationProvider[] = [
     fields: [
       {key: "api_key", name: "API key"}
     ],
+    // TODO: This config part isn't used anywhere yet.
+    //  It is for the functions that sync between hubspot and blinq.
     mappings: {
       key: "field_mappings",
       map: [

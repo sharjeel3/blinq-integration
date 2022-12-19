@@ -16,7 +16,7 @@ export interface Contact {
   notes?: string;
 }
 
-type KeyValue = {
+export type KeyValue = {
   key: string;
   value: string;
 }

@@ -1,14 +1,27 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import { Database, Integration } from "../../../database";
+import { Database, Integration, KeyValue } from "../../../database";
+import { IntegrationRequest } from "../../../features/integration";
 
-// type Data = {
-//   name: string;
-// };
+interface IntegrationApiRequest extends NextApiRequest {
+  body: IntegrationRequest
+}
 
 export default function handler(
-  _req: NextApiRequest,
+  _req: IntegrationApiRequest,
   res: NextApiResponse<Integration[]>
 ) {
-  res.status(200).json(Database.getIntegrations());
+  if (_req.method === "POST") {
+    const { provider, fields } = _req.body;
+    const id = Math.round(Math.random() * 1000 + 100).toString();
+    const settings = Object.keys(fields).map((key): KeyValue => {
+      return {key, value: fields[key]};
+    });
+    Database.addIntegration({
+      id,
+      provider,
+      settings
+    });
+    return res.status(200).end();
+  }
+  return res.status(200).json(Database.getIntegrations());
 }

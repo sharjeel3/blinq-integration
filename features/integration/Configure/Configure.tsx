@@ -5,8 +5,13 @@ import { useRouter } from "next/router";
 import TextInput from "../../../ui-library/TextInput";
 import { useState } from "react";
 import { useLinkedIntegrations } from "../useLinkedIntegrations/useLinkedIntegrations";
-import { Field, supportedProviders } from "../Provider/supportedProviders";
+import { Field, Providers, supportedProviders } from "../Provider/supportedProviders";
 import styles from "./Configure.module.scss";
+
+export type IntegrationRequest = {
+  provider: Providers;
+  fields: Record<string, string>;
+};
 
 export const ConfigureIntegration: FC = () => {
   const [values, setValues] = useState<Record<string, string>>({});
@@ -43,11 +48,30 @@ export const ConfigureIntegration: FC = () => {
       .catch();
     if (linkedSettings.refresh) {
       linkedSettings.refresh();
-    };
+    }
   };
 
-  const saveLink = () => {
+  console.log(values);
 
+  const saveLink = async () => {
+    if (!providerConfig) return;
+
+    const payload: IntegrationRequest = {
+      provider: providerConfig?.provider,
+      fields: values
+    };
+    await fetch(`/api/integrations`, {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    })
+      .catch();
+    if (linkedSettings.refresh) {
+      linkedSettings.refresh();
+    }
   };
 
   if (!providerConfig) {

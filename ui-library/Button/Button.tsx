@@ -10,17 +10,16 @@ type Props = {
 };
 
 export const Button: FC<Props> = (props: Props) => {
-  const { children,
-    onClick, primary,
-    secondary} = props;
+  const { children, onClick, primary, secondary } = props;
   return (
-    <button onClick={onClick} className={cx(styles.root, {
-      [styles.primary]: primary,
-      [styles.secondary]: secondary
-    })}>
+    <button
+      onClick={onClick}
+      className={cx(styles.root, {
+        [styles.primary]: primary,
+        [styles.secondary]: secondary
+      })}
+    >
       {children}
     </button>
   );
 };
-
-Button.displayName = "Button";

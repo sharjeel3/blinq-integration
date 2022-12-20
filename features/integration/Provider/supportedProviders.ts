@@ -1,12 +1,12 @@
 export type Mapping = {
   key: string;
-  map: {source: string; target: string;}[]
-}
+  map: { source: string; target: string }[];
+};
 
 export type Field = {
   key: string;
   name: string;
-}
+};
 
 export interface IntegrationProvider {
   name: string;
@@ -32,8 +32,8 @@ export const supportedProviders: IntegrationProvider[] = [
     description: "All your contacts in Salesforce CRM",
     imagePath: "/logos/salesforce.svg",
     fields: [
-      {key: "client_id", name: "Client id"},
-      {key: "client_secret", name: "Client secret"}
+      { key: "client_id", name: "Client id" },
+      { key: "client_secret", name: "Client secret" }
     ]
   },
   {
@@ -41,17 +41,15 @@ export const supportedProviders: IntegrationProvider[] = [
     name: "Hubspot",
     description: "Hubspot is the best free CRM",
     imagePath: "/logos/hubspot.svg",
-    fields: [
-      {key: "api_key", name: "API key"}
-    ],
+    fields: [{ key: "api_key", name: "API key" }],
     // TODO: This config part isn't used anywhere yet.
     //  It is for the functions that sync between hubspot and blinq.
     mappings: {
       key: "field_mappings",
       map: [
-        {source: "given_name", target: "first_name"},
-        {source: "family_name", target: "last_name"},
-        {source: "met_at_location", target: "hs_custom_field123"},
+        { source: "given_name", target: "first_name" },
+        { source: "family_name", target: "last_name" },
+        { source: "met_at_location", target: "hs_custom_field123" }
       ]
     }
   },
@@ -61,9 +59,9 @@ export const supportedProviders: IntegrationProvider[] = [
     description: "Unleash Zapier + Blinq",
     imagePath: "/logos/zapier.svg",
     fields: [
-      {key: "tenant_domain", name: "Tenant domain"},
-      {key: "client_id", name: "Client id"},
-      {key: "client_secret", name: "Client secret"}
+      { key: "tenant_domain", name: "Tenant domain" },
+      { key: "client_id", name: "Client id" },
+      { key: "client_secret", name: "Client secret" }
     ]
   }
 ];

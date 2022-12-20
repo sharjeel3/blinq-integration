@@ -13,8 +13,18 @@ export const TextInput: FC<Props> = (props: Props) => {
 
   return (
     <div className={styles.root}>
-      <input id={id} className={styles.input} type="text" value={value} onChange={(event: React.ChangeEvent<HTMLInputElement>) => onChange(event.target.value)} />
-      <label className={styles.label} htmlFor={id}>{label}</label>
+      <input
+        id={id}
+        className={styles.input}
+        type="text"
+        value={value}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          onChange(event.target.value)
+        }
+      />
+      <label className={styles.label} htmlFor={id}>
+        {label}
+      </label>
     </div>
   );
 };

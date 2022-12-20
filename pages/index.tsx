@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Provider from "../features/integration";
+import { supportedProviders } from "../features/integration/Provider/supportedProviders";
 
 const Home: NextPage = () => {
   return (
@@ -16,7 +17,7 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>Blinq</h1>
         <p className={styles.description}>Manage your integrations here</p>
         <div className={styles.grid}>
-          <Provider />
+          <Provider supportedProviders={supportedProviders} />
         </div>
       </main>
     </div>

@@ -10,6 +10,8 @@ type Props = {
 
 export const Card: FC<Props> = ({ children, center, className }) => {
   return (
-    <div className={cx(styles.root, className, {[styles.center]: center})}>{children}</div>
+    <div className={cx(styles.root, className, { [styles.center]: center })}>
+      {children}
+    </div>
   );
 };

@@ -11,8 +11,7 @@ export default function handler(
   }
   const integration = Database.getIntegrationById(id);
 
-  if (typeof integration === "undefined")
-    return res.status(404).end();
+  if (typeof integration === "undefined") return res.status(404).end();
 
   if (_req.method === "DELETE") {
     Database.removeIntegration(id);

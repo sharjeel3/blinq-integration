@@ -1,11 +1,14 @@
 import type { FC } from "react";
 import { useEffect } from "react";
 import Button from "../../../ui-library/Button";
-import { useRouter } from "next/router";
 import TextInput from "../../../ui-library/TextInput";
 import { useState } from "react";
 import { useLinkedIntegrations } from "../useLinkedIntegrations/useLinkedIntegrations";
-import { Field, Providers, supportedProviders } from "../Provider/supportedProviders";
+import {
+  Field,
+  IntegrationProvider,
+  Providers
+} from "../Provider/supportedProviders";
 import styles from "./Configure.module.scss";
 
 export type IntegrationRequest = {
@@ -13,29 +16,44 @@ export type IntegrationRequest = {
   fields: Record<string, string>;
 };
 
-export const ConfigureIntegration: FC = () => {
+type Props = {
+  provider: Providers;
+  supportedProviders: IntegrationProvider[];
+};
+
+export const ConfigureIntegration: FC<Props> = ({
+  provider,
+  supportedProviders
+}) => {
   const [values, setValues] = useState<Record<string, string>>({});
   const [isLinked, setIsLinked] = useState<boolean>(false);
   const linkedSettings = useLinkedIntegrations();
-  const router = useRouter();
-  const { provider } = router.query;
-  const providerConfig = supportedProviders.find(x => x.provider === provider);
-  const linkedValues = linkedSettings.linkedProviders.find(x => x.provider === provider);
+  const providerConfig = supportedProviders.find(
+    (x) => x.provider === provider
+  );
+  const linkedValues = linkedSettings.linkedProviders.find(
+    (x) => x.provider === provider
+  );
 
   useEffect(() => {
-    const v = providerConfig ?
-      Object.assign({},
-        ...providerConfig.fields.map(field => {
-          const currentSettings = linkedValues?.settings.find(x => x.key === field.key);
-          setIsLinked(!!currentSettings);
-          const currentVal = currentSettings ? currentSettings.value : "";
-          return {[field.key]: currentVal || ""};
-        })) : {};
+    setIsLinked(!!linkedValues);
+    const v = providerConfig
+      ? Object.assign(
+          {},
+          ...providerConfig.fields.map((field) => {
+            const currentSettings = linkedValues?.settings.find(
+              (x) => x.key === field.key
+            );
+            const currentVal = currentSettings ? currentSettings.value : "";
+            return { [field.key]: currentVal || "" };
+          })
+        )
+      : {};
     setValues(v);
   }, [providerConfig, linkedValues]);
 
   const handleChange = (key: string, val: string) => {
-    setValues(values => ({
+    setValues((values) => ({
       ...values,
       [key]: val
     }));
@@ -44,14 +62,11 @@ export const ConfigureIntegration: FC = () => {
   const disconnectLink = async () => {
     await fetch(`/api/integrations/${linkedValues?.id}`, {
       method: "DELETE"
-    })
-      .catch();
+    }).catch();
     if (linkedSettings.refresh) {
       linkedSettings.refresh();
     }
   };
-
-  console.log(values);
 
   const saveLink = async () => {
     if (!providerConfig) return;
@@ -63,12 +78,11 @@ export const ConfigureIntegration: FC = () => {
     await fetch(`/api/integrations`, {
       method: "POST",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(payload)
-    })
-      .catch();
+    }).catch();
     if (linkedSettings.refresh) {
       linkedSettings.refresh();
     }
@@ -83,10 +97,23 @@ export const ConfigureIntegration: FC = () => {
     <div className={styles.root}>
       {providerConfig.fields.map((field: Field) => {
         return (
-          <TextInput key={`${provider}${field.key}`} id={`${provider}${field.key}`} label={field.name} value={values[field.key] || ""} onChange={(val: string) => handleChange(field.key, val)} />
+          <TextInput
+            key={`${provider}${field.key}`}
+            id={`${provider}${field.key}`}
+            label={field.name}
+            value={values[field.key] || ""}
+            onChange={(val: string) => handleChange(field.key, val)}
+          />
         );
       })}
-      <Button primary onClick={() => {isLinked ? disconnectLink() : saveLink()}}>{isLinked ? "Disconnect" : "Save"}</Button>
+      <Button
+        primary
+        onClick={() => {
+          isLinked ? disconnectLink() : saveLink();
+        }}
+      >
+        {isLinked ? "Disconnect" : "Save"}
+      </Button>
     </div>
   );
 };

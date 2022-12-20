@@ -1,3 +1,17 @@
+# Bling Integration
+
+
+JSON files for settings in the back-end
+
+
+could consider formik
+
+
+validations and error handling
+
+
+----------------------------
+
 # Blinq Fullstack Coding Challenge
 
 Blinq wants to allow it's customers to integrate with third party services in order to sync their contact details with the third party service. Blinq has plans to integrate with dozens of services but for now we are going to start with three:

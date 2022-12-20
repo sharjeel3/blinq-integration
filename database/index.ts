@@ -19,7 +19,7 @@ export interface Contact {
 export type KeyValue = {
   key: string;
   value: string;
-}
+};
 
 export interface Integration {
   id: string;
@@ -33,7 +33,7 @@ export class Database {
       id: "12345",
       given_name: "Jane",
       family_name: "Rose",
-      email: "jane@blinq.me",
+      email: "jane@blinq.me"
     };
   }
 
@@ -45,7 +45,7 @@ export class Database {
         family_name: "Walker",
         email: "terry@waffles.co",
         met_at_location: "Melbourne, Australia",
-        notes: "Terry has a big blue beard.",
+        notes: "Terry has a big blue beard."
       },
       {
         id: "1235",
@@ -53,19 +53,21 @@ export class Database {
         family_name: "Saint",
         email: "santa@dreams.co",
         met_at_location: "Melbourne, Australia",
-        notes: "Santa gave me candy.",
-      },
+        notes: "Santa gave me candy."
+      }
     ];
   }
 
   // Data store for Integrations
+  // Note: the store array uses mutation for this POC.
   static integrations: Integration[] = [
     {
+      // Consider tenant and user information here
       id: "123",
       provider: Providers.Salesforce,
       settings: [
-        {key: "client_id", value: "SALESFORCE_CLIENT_ID"},
-        {key: "client_secret", value: "SALESFORCE_CLIENT_SECRET"},
+        { key: "client_id", value: "SALESFORCE_CLIENT_ID" },
+        { key: "client_secret", value: "SALESFORCE_CLIENT_SECRET" }
       ]
     }
   ];
@@ -75,7 +77,7 @@ export class Database {
   }
 
   public static getIntegrationById(id: string): Integration | undefined {
-    return Database.integrations.find(i => i.id === id);
+    return Database.integrations.find((i) => i.id === id);
   }
 
   public static addIntegration(integration: Integration) {
@@ -83,7 +85,7 @@ export class Database {
   }
 
   public static removeIntegration(id: string) {
-    const start = Database.integrations.map(i => i.id).indexOf(id);
+    const start = Database.integrations.map((i) => i.id).indexOf(id);
     Database.integrations.splice(start, 1);
   }
 }

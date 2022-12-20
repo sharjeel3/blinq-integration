@@ -10,10 +10,12 @@ type Props = {
 
 export const Text: FC<Props> = ({ children, heading, center }) => {
   return (
-    <span className={cx(styles.root, {
-      [styles.heading]: heading,
-      [styles.center]: center
-    })}>
+    <span
+      className={cx(styles.root, {
+        [styles.heading]: heading,
+        [styles.center]: center
+      })}
+    >
       {children}
     </span>
   );

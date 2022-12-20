@@ -10,7 +10,7 @@ type Props = {
 export const TextLink: FC<Props> = ({ children, href }) => {
   return (
     <Link href={href}>
-      <a  className={styles.root}>{children}</a>
+      <a className={styles.root}>{children}</a>
     </Link>
   );
 };
